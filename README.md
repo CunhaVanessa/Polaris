@@ -1,6 +1,6 @@
 ## 💻 Sobre o projeto
 
-4 em Linha - Ou Lig 4 é um jogo popular lançado pela empresa Milton Bradley Company (que foi adquirida pela Hasbro em 1984) em 1974, com o nome de "Connect Four". Neste jogo, os jogadores devem colocar as fichas estratégicamente na base, de forma a formar uma sequência com as 4 fichas da sua cor, ao mesmo tempo em que devem prestar atenção para bloquear as tentativas do oponente fazer o mesmo! Escolhemos esse jogo para realizar um trabalho da matéria INE5608 do curso de Sistemas de informaçao na UFSC.
+Polaris - Ou abalone é um jogo com regras simples e muito fácil de aprender e que permite formar ótimas estratégias. Vence quem conseguir empurrar 6 peças do adversário para fora do tabuleiro. Estimula e exercita a percepção abstrata espacial, a criatividade e o raciocínio podendo ser comparado à uma luta de Sumo, esporte típico do Japão onde vence quem conseguir empurrar o adversário para fora. Escolhemos esse jogo para realizar um trabalho da matéria INE5608 do curso de Sistemas de informaçao na UFSC.
 
 ---
 
