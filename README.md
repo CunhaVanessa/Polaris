@@ -6,13 +6,19 @@ Polaris - Ou abalone é um jogo com regras simples e muito fácil de aprender e 
 
 ## ⚙️ Funcionalidades
 
-- [] Iniciar nova partida
-  - [] Passo a passo
-  - [] Definir regras
+- [X] Iniciar nova partida
 
-- [] Realizar Jogada
+- [] Escolher esfera
 
-- [] Ver placar
+- [] Escolher posição
+
+- [] Enviar Jogada
+
+- [] Receber Jogada
+
+- []  Finalizar Partida
+
+
 
 ---
 
@@ -25,10 +31,25 @@ O layout da aplicação está disponível:
 
 ## 🚀 Como executar o projeto
 
-Passos para a execuçao:
-1. Passo 1 
-2. Passo 2
-3. Passo 3
+# Creating your game
+
+## 1. Create and activate a virtual environment (in the folder that contains the folders dog and config);
+
+## 2. Execute 'pip install -r requirements.txt' (to install the libraries used by the framework);
+
+## 3. Go to folder 'config' and follow the instructions therein;
+
+## 4. DEVELOP YOUR GAME;
+
+## 5. Execute 'pip freeze > requirements.txt' (to update requirements.txt with the libraries used by your game);
+
+## 6. To distribute your game:
+
+	 1. Remove the folder of the virtual environment;
+	 1. Compact and send your game with the following instrucions:
+		1. Create and activate a virtual environment;
+		1. Execute pip 'install -r requirements.txt';
+		1. To run the game:  <name_of_your_game>.py.
 
 💡Dica.
 
@@ -64,8 +85,6 @@ Lista das ferramentas
 
 ## 🦸 Autoras
 
-Aline Cristina Meyer
-Manuela Schimitz
 Vanessa Cunha
 
 
@@ -76,3 +95,6 @@ Vanessa Cunha
 Este projeto esta sobe a licença [MIT](./LICENSE).
 
 ---
+
+
+
