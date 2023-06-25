@@ -8,15 +8,15 @@ Polaris - Ou abalone é um jogo com regras simples e muito fácil de aprender e 
 
 - [X] Iniciar nova partida
 
-- [] Escolher esfera
+- [-] Escolher esfera
 
-- [] Escolher posição
+- [-] Escolher posição
 
-- [] Enviar Jogada
+- [-] Enviar Jogada
 
-- [] Receber Jogada
+- [-] Receber Jogada
 
-- []  Finalizar Partida
+- [-]  Finalizar Partida
 
 
 
