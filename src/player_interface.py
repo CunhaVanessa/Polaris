@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
-from math import sin, cos, pi
 from board import Board
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
+from math import sin, cos, pi
 
 
 class PlayerInterface(DogPlayerInterface):
@@ -19,41 +19,33 @@ class PlayerInterface(DogPlayerInterface):
         message = self.dog_server_interface.initialize(player_name, self)
         messagebox.showinfo(message=message)
         self.main_window.mainloop()  # abrir a janela
-        self.graphicsView.bind("<Configure>", self.on_resize)
-
 
     def fill_main_window(self):
         # Título, ícone, dimensionamento e fundo da janela
-        self.main_window.title("Polaris ")
-        self.main_window.geometry("1440x900")
-        self.main_window.resizable(False, False)
+        self.main_window.title("Polaris ✨")
+        self.main_window.geometry("1280x720")
+        self.main_window.resizable(True, True)
         self.main_window["bg"] = "white"
 
         # Criação de 2 frames e organização da janela em um grid de 2 linhas e 1 coluna,
         # sendo que table_frame ocupa a linha superior e message_frame, a inferior
-        self.table_frame = Frame(self.main_window, padx=100, pady=40, bg="white")
-        self.table_frame.grid(row=0, column=0)
-        self.message_frame = Frame(self.main_window, padx=0, pady=10, bg="white")
-        self.message_frame.grid(row=1, column=0)
+        self.table_frame = Canvas(self.main_window, bg="white")
+        self.table_frame.grid(row=0, column=0, sticky='nsew')
 
+        self.main_window.grid_rowconfigure(0, weight=1)
+        self.main_window.grid_columnconfigure(0, weight=1)
 
+        self.message_frame = Label(self.main_window, bg="white", fg="black")
+        self.message_frame.grid(row=1, column=0, sticky='nsew')
+        
+        self.table_frame.bind("<Configure>", self.on_resize)
 
         # Preenchimento de table_frame com 21 imagens iguais, organizadas em 3 linhas e 7 colunas
-        self.board_view = []
-        for y in range(7):
-            a_column = []  # 	column
-            for x in range(9):
-                aLabel = Label(self.table_frame, bd=0)
-                aLabel.grid(row=x, column=y)
-                aLabel.bind(
-                    "<Button-1>", lambda event, a_line=x, a_column=y: self.select_board_place(event, a_line, a_column)
-                )
-                a_column.append(aLabel)
-            self.board_view.append(a_column)
 
-        # Preenchimento de message_frame com 1 label com texto,
+        # Preenchimento de message_frame com 1 imagem com logo (label) e 1 label com texto,
         # organizadas em 1 linha e 2 colunas
-        self.message_label = Label(self.message_frame, bg="white", text="Polaris ✨", font="arial 30")
+
+        self.message_label = Label(self.message_frame, bg="white", text=" Gobblet Gobblers", font="arial 30", fg="black")
         self.message_label.grid(row=0, column=1)
 
         # Criação de um menu para o programa
@@ -61,14 +53,17 @@ class PlayerInterface(DogPlayerInterface):
         self.menubar = Menu(self.main_window)
         self.menubar.option_add("*tearOff", FALSE)
         self.main_window["menu"] = self.menubar
-        
         # Adicionar menu(s) à barra de menu:
         self.menu_file = Menu(self.menubar)
         self.menubar.add_cascade(menu=self.menu_file, label="File")
-       
         # Adicionar itens de menu a cada menu adicionado à barra de menu:
         self.menu_file.add_command(label="Iniciar jogo", command=self.start_match)
         self.menu_file.add_command(label="Restaurar estado inicial", command=self.start_game)
+    
+        # on_resize method
+    def on_resize(self, event):
+        self.table_frame.delete("board")
+        self.create_board()
 
     def select_board_place(self, event, line, column):
         match_status = self.board.get_match_status()
@@ -126,13 +121,7 @@ class PlayerInterface(DogPlayerInterface):
         self.update_menu_status()
         self.message_label["text"] = game_state.get_message()
         self.image_to_draw = []
-        cont = 0
-        for column in range(7):
-            for line in range(3):
-                image_id = self.get_image_id(game_state, line, column)
-                self.image_to_draw.append(PhotoImage(file=image_id))
-                self.board_view[column][line]["imag"] = self.image_to_draw[cont]
-                cont += 1
+
 
     def update_menu_status(self):
         match_status = self.board.get_match_status()
@@ -249,8 +238,8 @@ class PlayerInterface(DogPlayerInterface):
         x_spacing = sfere_radius * 1.5 + 10  # Adicionei 10 pixels de espaçamento horizontal
         y_spacing = sfere_radius * 1.5 * (3 ** 0.5)
 
-        board_center_x = self.graphicsView.winfo_width() / 2
-        board_center_y = self.graphicsView.winfo_height() / 2
+        board_center_x = self.table_frame.winfo_width() / 2
+        board_center_y = self.table_frame.winfo_height() / 2
 
         # Desenhe o hexágono de fundo
         self.create_hexagon(board_center_x, board_center_y, hex_radius, fill='#44a5ff', outline='#44a5ff', tags="board")
@@ -291,11 +280,9 @@ class PlayerInterface(DogPlayerInterface):
                     color = 'white'
                 else:
                     color = 'grey'
-                
-                self.board[i][j] = Sfere(color)
 
                 sfere_tag = self.create_sfere(x, y, sfere_radius, fill=color, outline='black', tags="board")
-                self.graphicsView.tag_bind(sfere_tag, "<Button-1>", lambda event, tag=sfere_tag: self.on_sfere_click(event, tag))
+                self.table_frame.tag_bind(sfere_tag, "<Button-1>", lambda event, tag=sfere_tag: self.on_sfere_click(event, tag))
 
     # create_hexagon method
     def create_hexagon(self, x, y, radius, **kwargs):
@@ -303,12 +290,12 @@ class PlayerInterface(DogPlayerInterface):
         for i in range(6):
             angle = 2 * pi * i / 6
             points.append((x + radius * cos(angle), y + radius * sin(angle)))
-        return self.graphicsView.create_polygon(points, **kwargs)
+        return self.table_frame.create_polygon(points, **kwargs)
 
 
     # create_sfere method
     def create_sfere(self, x, y, radius, **kwargs):  
-       return self.graphicsView.create_oval(x - radius, y - radius, x + radius, y + radius, **kwargs)
+       return self.table_frame.create_oval(x - radius, y - radius, x + radius, y + radius, **kwargs)
 
     # on_sfere_click method
     def on_sfere_click(self, event, sfere_tag):

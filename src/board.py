@@ -43,7 +43,7 @@ class Board:
             interface_image.setMessage(turn_player.get_name() + ", jogada irregular")
         else:
             if self.match_status == 1:
-                interface_image.setMessage("Gobblet Gobblers")
+                interface_image.setMessage("Polaris ✨")
             elif self.match_status == 2:
                 interface_image.setMessage("Vencedor: " + self.get_winner_name())
             elif self.match_status == 3:
